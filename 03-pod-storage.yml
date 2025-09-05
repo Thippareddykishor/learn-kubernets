@@ -14,6 +14,6 @@ spec:
       volumeMounts:
       - mountPath: /mnt
         name: html 
-   volumes:
+  volumes:
      - name: html
        emptyDir: {}
