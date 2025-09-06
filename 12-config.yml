@@ -27,3 +27,15 @@ spec:
           name: demo-data
           key: "TEST"
 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-cm-1
+spec:
+  containers:
+  - name: demotest
+    image: docker.io/rkalluru/learnk8s:rhel19-bare
+    envFrom: 
+    - configMapRef: 
+        name: sample-data
