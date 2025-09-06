@@ -54,7 +54,6 @@ metadata:
   name: catalogue
   labels:
     component: catalogue
-
 spec:
   replicas: 3
   selector:
@@ -200,3 +199,79 @@ spec:
           envFrom:
           - configMapRef:
               name: user
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector::
+    component:: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  type: ClusterIP
+  selector:
+    component: catalogue
+  ports:  
+  - port: 8080
+    targetPort: 8080
+---  
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart
+spec:
+  type: ClusterIP
+  selector:
+    component: cart
+  ports:  
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+spec:
+  type: ClusterIP
+  selector:
+    component: shipping
+  ports:  
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+spec:
+  type: ClusterIP
+  selector:
+    component: payment
+  ports:  
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  type: ClusterIP
+  selector:
+    component: user
+  ports:  
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: batch/v1
+kind: Job
