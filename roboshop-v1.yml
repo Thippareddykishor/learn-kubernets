@@ -3,15 +3,15 @@ kind: ConfigMap
 metadata:
   name: frontend
 data:
-  CATALOGUE_HOST: localhost
+  CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"  
-  USER_HOST: localhost  
+  USER_HOST: "user"  
   USER_PORT: "8080" 
-  CART_HOST: localhost 
+  CART_HOST: "cart" 
   CART_PORT: "8080"
-  SHIPPING_HOST: localhost 
+  SHIPPING_HOST: "shipping" 
   SHIPPING_PORT: "8080"
-  PAYMENT_HOST: localhost 
+  PAYMENT_HOST: "payment"
   PAYMENT_PORT: "8080"
 
 ---
@@ -45,7 +45,7 @@ metadata:
 data:
   MONGO: "true"
   MONGO_URL: "mongodb://mongodb-dev.kommanuthala.store:27017/catalogue" 
-  CATALOGUE_HOST: localhost       
+  CATALOGUE_HOST: "catalogue"       
 
 ---
 apiVersion: apps/v1
@@ -77,7 +77,7 @@ kind: ConfigMap
 metadata:
   name: cart
 data:
-  CATALOGUE_HOST: localhost
+  CATALOGUE_HOST: "catalogue"
   CATALOGUE_PORT: "8080"
   REDIS_HOST: redis-dev.kommanuthala.store
 ---
@@ -108,7 +108,7 @@ kind: ConfigMap
 metadata:
   name: shipping
 data:
-  CART_ENDPOINT: "localhost:8080"
+  CART_ENDPOINT: "cart:8080"
   DB_HOST: mysql-dv.kommanuthala.store
 ---
 apiVersion: apps/v1
@@ -138,9 +138,9 @@ kind: ConfigMap
 metadata:
   name: payment
 data:
-  CART_HOST: localhost
+  CART_HOST: "cart"
   CART_PORT: "8080"
-  USER_HOST: localhost
+  USER_HOST: "user"
   USER_PORT: "8080"
   AMQP_HOST: rabbitmq-dev.kommanuthala.store
   AMQP_USER: roboshop 
