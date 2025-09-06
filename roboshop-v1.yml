@@ -1,3 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend
+data:
+  CATALOGUE_HOST: localhost
+  CATALOGUE_PORT: "8080"  
+  USER_HOST: localhost  
+  USER_PORT: "8080" 
+  CART_HOST: localhost 
+  CART_PORT: "8080"
+  SHIPPING_HOST: localhost 
+  SHIPPING_PORT: "8080"
+  PAYMENT_HOST: localhost 
+  PAYMENT_PORT: "8080"
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,28 +34,16 @@ spec:
       containers:
         - name: frontend
           image: public.ecr.aws/w8x4g9h7/roboshop-v3/frontend
-          env:
-            - name: CATALOGUE_HOST
-              value: catalogue-ip
-            - name: CATALOGUE_PORT
-              value: "8080"
-            - name: USER_HOST
-              value: host
-            - name: USER_PORT
-              value: "8080"
-            - name: CART_HOST
-              value: cart
-            - name: SHIPPING_HOST
-              value: shipping
-            - name: SHIPPING_PORT
-              value: "8080"
-            - name: PAYMENT_HOST
-              value: host
-            - name: PAYMENT_PORT
-              value: "8080"
-            
-    
-
+          envFrom:
+          - configMapRef:
+              name: frontend
+---            
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue
+data:
+  CATALOGUE_HOST: localhost            
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -60,3 +65,122 @@ spec:
       containers: 
         - name: catalogue
           image: public.ecr.aws/w8x4g9h7/roboshop-v3/catalogue
+          envFrom:
+          - configMapRef:
+              name: catalogue
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cart
+data:
+  CATALOGUE_HOST: localhost
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+  labels:
+    component: cart
+spec:
+  selector:
+    matchLabels:
+      component: cart
+  template:
+    metadata:
+      labels: 
+        component: cart
+    spec:
+      containers:
+        - name: cart
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/cart
+          envFrom:
+          - configMapRef:
+              name: cart
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipping
+data:
+  CATALOGUE_HOST: localhost
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+  labels:
+    component: shipping
+spec:
+  selector:
+    matchLabels:
+      component: shipping
+  template:
+    metadata:
+      labels: 
+        component: shipping
+    spec:
+      containers:
+        - name: shipping
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/shipping 
+          envFrom:
+          - configMapRef:
+              name: shipping   
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: payment
+data:
+  CATALOGUE_HOST: localhost
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    component: payment
+spec:
+  selector:
+    matchLabels:
+      component: payment
+  template:
+    metadata:
+      labels: 
+        component: payment
+    spec:
+      containers:
+        - name: payment
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/payment
+          envFrom:
+          - configMapRef:
+              name: payment
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+data:
+  CATALOGUE_HOST: localhost
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  labels:
+    component: user
+spec:
+  selector:
+    matchLabels:
+      component: user
+  template:
+    metadata:
+      labels: 
+        component: user
+    spec:
+      containers:
+        - name: user
+          image: public.ecr.aws/w8x4g9h7/roboshop-v3/user
+          envFrom:
+          - configMapRef:
+              name: user
