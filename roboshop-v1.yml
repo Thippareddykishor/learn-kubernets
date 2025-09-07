@@ -315,7 +315,7 @@ spec:
         - name: APP_GIT_URL
           value: https://github.com/roboshop-devops-project-v3/shipping
         - name: DB_HOST
-          value: mysql-dv.kommanuthala.store
+          value: mysql-dev.kommanuthala.store
         - name: DB_USER
           value: root 
         - name: DB_PASS
@@ -342,7 +342,7 @@ spec:
         - name: APP_GIT_URL
           value: https://github.com/roboshop-devops-project-v3/shipping
         - name: DB_HOST
-          value: mysql-dv.kommanuthala.store
+          value: mysql-dev.kommanuthala.store
         - name: DB_USER
           value: root
         - name: DB_PASS
@@ -369,7 +369,7 @@ spec:
         - name: APP_GIT_URL
           value: https://github.com/roboshop-devops-project-v3/shipping
         - name: DB_HOST
-          value: mysql-dv.kommanuthala.store
+          value: mysql-dev.kommanuthala.store
         - name: DB_USER
           value: root
         - name: DB_PASS
