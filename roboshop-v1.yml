@@ -109,7 +109,7 @@ metadata:
   name: shipping
 data:
   CART_ENDPOINT: "cart:8080"
-  DB_HOST: mysql-dv.kommanuthala.store
+  DB_HOST: mysql-dev.kommanuthala.store
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -212,7 +212,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    component:: frontend
+    component: frontend
   ports:
   - port: 80
     targetPort: 80
@@ -293,7 +293,7 @@ spec:
         - name: APP_GIT_URL
           value: https://github.com/roboshop-devops-project-v3/catalogue
         - name: DB_HOST
-          value: mongodb-dv.kommanuthala.store
+          value: mongodb-dev.kommanuthala.store
         - name: SCHEMA_FILE
           value: db/master-data.js
       restartPolicy: Never
@@ -348,7 +348,7 @@ spec:
         - name: DB_PASS
           value: RoboShop@1 
         - name: SCHEMA_FILE
-          value: db/schema.sql public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          value: db/schema.sql 
       restartPolicy: Never  
   backoffLimit: 3
 ---
@@ -356,12 +356,12 @@ spec:
 apiVersion: batch/v1
 kind: Job
 metadata: 
-  name: shipping-master
+  name: shipping-master-data
 spec:
   template:
     spec: 
       containers:
-      - name: shipping master
+      - name: master-data
         image:  public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
         env:
         - name: DB_TYPE
@@ -375,7 +375,7 @@ spec:
         - name: DB_PASS
           value: RoboShop@1
         - name: SCHEMA_FILE
-          value: db/master-data.sql public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+          value: db/master-data.sql 
       restartPolicy: Never
   backoffLimit: 3
 
