@@ -207,7 +207,7 @@ metadata:
   name: frontend
 spec:
   type: LoadBalancer
-  selector::
+  selector:
     component:: frontend
   ports:
   - port: 80
