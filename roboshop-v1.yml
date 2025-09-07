@@ -22,7 +22,7 @@ metadata:
   labels:
     component: frontend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: frontend
@@ -55,7 +55,7 @@ metadata:
   labels:
     component: catalogue
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: catalogue
@@ -87,6 +87,7 @@ metadata:
   labels:
     component: cart
 spec:
+  replicas: 1
   selector:
     matchLabels:
       component: cart
@@ -117,6 +118,7 @@ metadata:
   labels:
     component: shipping
 spec:
+  replicas: 1
   selector:
     matchLabels:
       component: shipping
@@ -154,6 +156,7 @@ metadata:
   labels:
     component: payment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       component: payment
@@ -185,6 +188,7 @@ metadata:
   labels:
     component: user
 spec:
+  replicas: 1
   selector:
     matchLabels:
       component: user
