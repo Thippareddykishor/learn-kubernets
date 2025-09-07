@@ -275,3 +275,103 @@ spec:
 ---
 apiVersion: batch/v1
 kind: Job
+metadata:
+  name: catalogue-schema
+spec:
+  template:
+    spec:
+      containers:
+      - name: shcema-load
+        image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+        env:
+        - name: DB_TYPE
+          value: mongo
+        - name: APP_GIT_URL
+          value: https://github.com/roboshop-devops-project-v3/catalogue
+        - name: DB_HOST
+          value: mongodb-dv.kommanuthala.store
+        - name: SCHEMA_FILE
+          value: db/master-data.js
+      restartPolicy: Never
+  backoffLimit: 4 
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shipping-user-shcema
+spec: 
+  template:
+    spec:
+      containers:
+      - name: shcema-user-load
+        image: public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+        env:
+        - name: DB_TYPE
+          value: mysql 
+        - name: APP_GIT_URL
+          value: https://github.com/roboshop-devops-project-v3/shipping
+        - name: DB_HOST
+          value: mysql-dv.kommanuthala.store
+        - name: DB_USER
+          value: root 
+        - name: DB_PASS
+          value: RoboShop@1
+        - name: SCHEMA_FILE
+          value: db/app-user.sql 
+      restartPolicy: Never
+    backoffLimit: 3
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shiping-schema
+spec:
+  template:
+    spec:
+      containers:
+      - name: shcema-load
+        image:  public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+        env: 
+        - name: DB_TYPE
+          value: mysql 
+        - name: APP_GIT_URL
+          value: https://github.com/roboshop-devops-project-v3/shipping
+        - name: DB_HOST
+          value: mysql-dv.kommanuthala.store
+        - name: DB_USER
+          value: root
+        - name: DB_PASS
+          value: RoboShop@1 
+        - name: SCHEMA_FILE
+          value: db/schema.sql public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+      restartPolicy: Never  
+  backoffLimit: 3
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata: 
+  name: shipping-master
+spec:
+  template:
+    spec: 
+      containers:
+      - name: shipping master
+        image:  public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+        env:
+        - name: DB_TYPE
+          value: mysql
+        - name: APP_GIT_URL
+          value: https://github.com/roboshop-devops-project-v3/shipping
+        - name: DB_HOST
+          value: mysql-dv.kommanuthala.store
+        - name: DB_USER
+          value: root
+        - name: DB_PASS
+          value: RoboShop@1
+        - name: SCHEMA_FILE
+          value: db/master-data.sql public.ecr.aws/w8x4g9h7/roboshop-v3/schema-load
+      restartPolicy: Never
+  backoffLimit: 3
+
