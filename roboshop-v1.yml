@@ -319,7 +319,7 @@ spec:
         - name: SCHEMA_FILE
           value: db/app-user.sql 
       restartPolicy: Never
-    backoffLimit: 3
+  backoffLimit: 3
 ---
 
 apiVersion: batch/v1
